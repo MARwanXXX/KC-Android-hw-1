@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +17,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +44,74 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
       button.setOnClickListener(new View.OnClickListener() {
-          @SuppressLint("SetTextI18n")
+          @SuppressLint({"SetTextI18n", "ResourceAsColor"})
           @Override
-          public void onClick(View view) {
-
-              int num1 = Integer.parseInt(number1.getText().toString());
-              int num2 = Integer.parseInt(number2.getText().toString());
-              int num3 = Integer.parseInt(number3.getText().toString());
-              int num4 = Integer.parseInt(number4.getText().toString());
+          public void onClick(View hew) {
 
 
 
-              int totaln = (num1 * 15/100) + (num2 * 25/100) + (num3 * 30/100) + (num4 * 30/100);
+            //if on section is empty
+              if (number1.getText().toString().isEmpty() || number2.getText().toString().isEmpty()
+              || number3.getText().toString().isEmpty() || number3.getText().toString().isEmpty()){
 
-              total.setText(String.valueOf(totaln));
 
-              result.setText("Result: %");
+
+                  if(number1.getText().toString().isEmpty()){
+                      number1.setError( "Fill the Quizes section!" );
+                  }
+
+                  if(number2.getText().toString().isEmpty()){
+                      number2.setError( "Fill the Homework section!" );
+                  }
+
+                  if(number3.getText().toString().isEmpty()){
+                      number3.setError( "Fill the Mid Terms section!" );
+                  }
+
+                  if(number4.getText().toString().isEmpty()){
+                      number4.setError( "Fill the Final section!" );
+                  }
+
+
+              }else {
+
+                  int num1 = Integer.parseInt(number1.getText().toString());
+                  int num2 = Integer.parseInt(number2.getText().toString());
+                  int num3 = Integer.parseInt(number3.getText().toString());
+                  int num4 = Integer.parseInt(number4.getText().toString());
+
+                  if (num1 > 100 || num2 > 100 || num3 > 100 || num4 > 100){
+
+                      if (num1 > 100){
+                          number1.setError( "The grates grade is 100!" );
+                      }
+
+                      if (num2 > 100){
+                          number2.setError( "The grates grade is 100!" );
+                      }
+
+                      if (num3 > 100){
+                          number3.setError( "The grates grade is 100!" );
+                      }
+
+                      if (num4 > 100){
+                          number4.setError( "The grates grade is 100!" );
+                      }
+
+
+                  }else {
+
+                      int totaln = (num1 * 15 / 100) + (num2 * 25 / 100) + (num3 * 30 / 100) + (num4 * 30 / 100);
+
+                      total.setText(String.valueOf(totaln));
+
+                      result.setText("Result: %");
+                  }
+
+              }
           }
       });
 
@@ -78,23 +136,24 @@ public class MainActivity extends AppCompatActivity {
 
                on[0]++;
 
-               if(on[0] == 1){
+               if(on[0] == 2){
+                   on[0] = 0;
+               }
+
+               if (on[0] == 1) {
                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                }
 
-               if(on[0] == 0 || on[0] == 2) {
-                   AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+               if (on[0] == 0 || on[0] == 2) {
+                       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                }
 
-               if(on[0] == 2){
-
-                   on[0] = 0;
                }
-           }
+
+
+
        });
     }
-
-
 
 
 
